@@ -1,9 +1,13 @@
 package com.fr.gc.entities;
-// Generated 3 août 2020 18:37:34 by Hibernate Tools 4.3.5.Final
+// Generated 3 août 2020 18:57:52 by Hibernate Tools 4.3.5.Final
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -18,6 +22,7 @@ public class Personne implements java.io.Serializable {
 	private String prenom;
 	private String adresse;
 	private String email;
+	private Set<Compte> comptes = new HashSet<Compte>(0);
 
 	public Personne() {
 	}
@@ -28,6 +33,15 @@ public class Personne implements java.io.Serializable {
 		this.prenom = prenom;
 		this.adresse = adresse;
 		this.email = email;
+	}
+
+	public Personne(String cin, String nom, String prenom, String adresse, String email, Set<Compte> comptes) {
+		this.cin = cin;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
+		this.email = email;
+		this.comptes = comptes;
 	}
 
 	@Id
@@ -75,6 +89,15 @@ public class Personne implements java.io.Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personne")
+	public Set<Compte> getComptes() {
+		return this.comptes;
+	}
+
+	public void setComptes(Set<Compte> comptes) {
+		this.comptes = comptes;
 	}
 
 }
