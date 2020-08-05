@@ -1,10 +1,11 @@
 package com.fr.gc.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.Criterion;
 
-public interface GenericDao<T, K> {
+public interface GenericDao<T, K extends Serializable> {
 
 	public void save(T entity) throws Exception;
 
