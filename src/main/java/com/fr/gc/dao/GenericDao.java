@@ -16,5 +16,5 @@ public interface GenericDao<T, K> {
 	
 	public List<T> findAll() throws Exception;
 	
-	public List<T> findByCriteria (Criterion Crit);
+	public List<T> findByCriteria (Criterion Crit) throws Exception;
 }
