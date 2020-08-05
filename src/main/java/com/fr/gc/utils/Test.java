@@ -12,8 +12,16 @@ public class Test {
 		
 		Personne personne = new Personne("145", "salah", "ahh", "ahha", "hhh");
 		Personne personne1 = new Personne("1475", "salah", "aohh", "ahoha", "hohh");
+		PersonneDao personneDao = new PersonneDaoImpl();
 		
+		try {
+			personneDao.findById(personne.getCin());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		/*
 		//with couplage
 		PersonneDaoImpl personneDaoImpl = new PersonneDaoImpl() ;
 		try {
@@ -31,7 +39,7 @@ public class Test {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }
