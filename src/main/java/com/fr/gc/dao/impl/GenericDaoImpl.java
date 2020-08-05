@@ -18,12 +18,11 @@ public class GenericDaoImpl<T, K extends Serializable> implements GenericDao<T, 
 
 	protected Session hibernateSession;
 	private Transaction tx;
-	private Class<T> clazz ;// not personne not specific something generic clazz
-	
-	
-	//selon type d'argument
+	private Class<T> clazz;// not personne not specific something generic clazz
+
+	// selon type d'argument
 	public GenericDaoImpl() {
-		clazz= (Class<T>) ((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
 	protected void startOperation() {
@@ -63,23 +62,27 @@ public class GenericDaoImpl<T, K extends Serializable> implements GenericDao<T, 
 	@Override
 	public T findById(K id) throws Exception {
 		startOperation();
-		//get null load exp
-		T entity = (T) hibernateSession.get(clazz,id);//
+		// get null load exp
+		T entity = (T) hibernateSession.get(clazz, id);//
 		hibernateSession.close();
-		
-		return null;
+
+		return entity;
 	}
 
 	@Override
 	public List<T> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		startOperation();
+		List<T> list = hibernateSession.createCriteria(clazz).list(); // select * from classPersonne
+		hibernateSession.close();
+		return list;
 	}
 
 	@Override
 	public List<T> findByCriteria(Criterion Crit) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		startOperation();
+		List<T> list = hibernateSession.createCriteria(clazz).add(Crit).list();
+		hibernateSession.close();
+		return list;
 	}
 
 }
