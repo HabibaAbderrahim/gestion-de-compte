@@ -24,19 +24,31 @@ public class PersonneServiceImpl implements PersonneService {
 		}
 		Criterion Crit = Restrictions.eq("email", personne.getEmail());
 		List<Personne> list = personneDao.findByCriteria(Crit);
-		if(!list.isEmpty()) {
+		if (!list.isEmpty()) {
 			return new MessageResponse(false, "email existant");
 
 		}
 		personneDao.save(personne);
-		return new MessageResponse(true,"Operation save effectuéé avec succés");
+		return new MessageResponse(true, "Operation save effectuéé avec succés");
 
 	}
 
 	@Override
 	public MessageResponse update(Personne personne) throws Exception {
 
-		return null;
+		Criterion crit2 = Restrictions.eq("email", personne.getEmail());
+		Criterion crit1 = Restrictions.idEq(personne.getCin());
+		Criterion Crit = Restrictions.and(crit1, crit2);
+		List<Personne> list = personneDao.findByCriteria(Crit);
+
+		if (list.isEmpty()) {
+			list = personneDao.findByCriteria(crit2);
+			if (!list.isEmpty()) {
+				return new MessageResponse(false, "Email existant");
+			}
+		}
+		personneDao.update(personne);
+		return new MessageResponse(true, "operation effectuée avec succés");
 	}
 
 	@Override
