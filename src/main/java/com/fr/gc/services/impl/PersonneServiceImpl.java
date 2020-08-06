@@ -53,14 +53,24 @@ public class PersonneServiceImpl implements PersonneService {
 
 	@Override
 	public MessageResponse delete(Personne personne) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//a condition persoonnee aandouch compte
+		
+		
+		Criterion Crit= Restrictions.isNotEmpty("comptes");
+		List<Personne>list = personneDao.findByCriteria(Crit);
+		
+		if(!list.isEmpty()) {
+			return new MessageResponse(false,"Personne a un ou plusieurs comptes !!!");
+		}
+		personneDao.delete(personne);
+		return new MessageResponse(false,"operation effectuée avc succeess");
 	}
 
 	@Override
 	public List<Personne> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	
+		return personneDao.findAll();
 	}
 
 }
