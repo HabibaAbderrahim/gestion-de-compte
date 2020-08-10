@@ -25,28 +25,39 @@
 			<h:inputText value="#{personneBean.personne.adresse}"></h:inputText>
 
 			<h:commandButton action="#{personneBean.ajouter()}" value="Ajouter" />
+
 		</h:panelGrid>
 
 		<h:dataTable value="#{personneBean.list}" var="i">
 			<h:column>
 				<f:facet name="header">CIN</f:facet>
-				<h:outputText value="i.cin"></h:outputText>
+				<h:outputText value="#{i.cin}"></h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Nom</f:facet>
-				<h:outputText value="i.nom"></h:outputText>
+				<h:outputText value="#{i.nom}"></h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Prenom</f:facet>
-				<h:outputText value="i.prenom"></h:outputText>
+				<h:outputText value="#{i.prenom}"></h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Email</f:facet>
-				<h:outputText value="i.email"></h:outputText>
+				<h:outputText value="#{i.email}"></h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Adresse</f:facet>
-				<h:outputText value="i.adresse"></h:outputText>
+				<h:outputText value="#{i.adresse}"></h:outputText>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Opérations</f:facet>
+				<h:commandButton action="#{personneBean.supprimer()}"
+					value="Supprimer">
+				<f:setPropertyActionListener value="#{i}" target="#{personneBean.personne}"></f:setPropertyActionListener>
+
+				</h:commandButton>
+
 			</h:column>
 
 		</h:dataTable>
