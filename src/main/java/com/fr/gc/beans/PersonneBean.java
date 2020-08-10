@@ -23,6 +23,20 @@ public class PersonneBean implements Serializable {
 
 		try {
 			personneService.save(personne);
+			// new object after
+			personne = new Personne();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void supprimer() {
+
+		try {
+			personneService.delete(personne);
+			personne = new Personne();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
