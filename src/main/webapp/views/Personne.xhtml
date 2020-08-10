@@ -18,14 +18,38 @@
 
 			<h:outputText value="Prénom" />
 			<h:inputText value="#{personneBean.personne.prenom}"></h:inputText>
-			
+
 			<h:outputText value="Email" />
 			<h:inputText value="#{personneBean.personne.email}"></h:inputText>
 			<h:outputText value="Adresse" />
 			<h:inputText value="#{personneBean.personne.adresse}"></h:inputText>
-			
-			<h:commandButton action="#{personneBean.ajouter} "value="Ajouter"></h:commandButton>
+
+			<h:commandButton action="#{personneBean.ajouter()}" value="Ajouter" />
 		</h:panelGrid>
+
+		<h:dataTable value="#{personneBean.list}" var="i">
+			<h:column>
+				<f:facet name="header">CIN</f:facet>
+				<h:outputText value="i.cin"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nom</f:facet>
+				<h:outputText value="i.nom"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Prenom</f:facet>
+				<h:outputText value="i.prenom"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="i.email"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Adresse</f:facet>
+				<h:outputText value="i.adresse"></h:outputText>
+			</h:column>
+
+		</h:dataTable>
 
 	</h:form>
 </body>
