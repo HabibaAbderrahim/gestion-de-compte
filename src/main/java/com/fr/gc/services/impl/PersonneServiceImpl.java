@@ -36,19 +36,22 @@ public class PersonneServiceImpl implements PersonneService {
 	@Override
 	public MessageResponse update(Personne personne) throws Exception {
 
-		Criterion crit2 = Restrictions.eq("email", personne.getEmail());
 		Criterion crit1 = Restrictions.idEq(personne.getCin());
-		Criterion Crit = Restrictions.and(crit1, crit2);
-		List<Personne> list = personneDao.findByCriteria(Crit);
+		Criterion crit2 = Restrictions.eq("email", personne.getEmail());
+		Criterion crit = Restrictions.and(crit1, crit2);
+		List<Personne> list = personneDao.findByCriteria(crit);
 
 		if (list.isEmpty()) {
+			// lawej bel email
 			list = personneDao.findByCriteria(crit2);
 			if (!list.isEmpty()) {
-				return new MessageResponse(false, "Email existant");
+				return new MessageResponse(false, "email existant");
 			}
+
 		}
+
 		personneDao.update(personne);
-		return new MessageResponse(true, "operation effectuée avec succés");
+		return new MessageResponse(false, "email existant");
 	}
 
 	@Override
