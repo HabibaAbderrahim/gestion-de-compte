@@ -18,6 +18,19 @@ public class PersonneBean implements Serializable {
 	private Personne personne = new Personne();
 	private PersonneService personneService = new PersonneServiceImpl();
 	private List<Personne> list = new ArrayList<>();
+	private boolean btnAdd = true, btnEdit = false;
+
+	public void clickEdit() {
+		
+		btnEdit = true;
+		btnAdd = false;
+	}
+	
+	public void annuler() {
+		personne = new Personne();
+		btnAdd = true;
+		btnEdit = false;
+	}
 
 	public void ajouter() {
 
@@ -25,6 +38,19 @@ public class PersonneBean implements Serializable {
 			personneService.save(personne);
 			// new object after
 			personne = new Personne();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void modifier() {
+
+		try {
+			personneService.update(personne);
+			personne = new Personne();
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,6 +90,22 @@ public class PersonneBean implements Serializable {
 
 	public void setList(List<Personne> list) {
 		this.list = list;
+	}
+
+	public boolean isBtnAdd() {
+		return btnAdd;
+	}
+
+	public void setBtnAdd(boolean btnAdd) {
+		this.btnAdd = btnAdd;
+	}
+
+	public boolean isBtnEdit() {
+		return btnEdit;
+	}
+
+	public void setBtnEdit(boolean btnEdit) {
+		this.btnEdit = btnEdit;
 	}
 
 }
