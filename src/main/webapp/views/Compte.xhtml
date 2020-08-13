@@ -9,6 +9,8 @@
 <body>
 	<h:form>
 
+		<p:commandButton value="+" style="float:right"
+			onclick="PF('dlg3').show();"></p:commandButton>
 		<p:dataTable value="#{compteBean.list}" var="cpt">
 
 			<p:column headerText="Date création">
@@ -25,6 +27,22 @@
 			</p:column>
 		</p:dataTable>
 
+		<p:dialog header="Compte" widgetVar="dlg3" showEffect="explode"
+			modal="true" hideEffect="bounce" resizable="false">
+
+			<!-- ID auto inc !! -->
+			<h:panelGrid>
+				<h:outputText value="Date"></h:outputText>
+				<p:calendar value="#{compteBean.compte.date}" pattern="dd/MM/yyyy"></p:calendar>
+				<h:outputText value="Client" />
+				<p:selectOneMenu>
+
+
+					<f:selectItems value="#{personneBean.list}" var="pers" 
+					itemLabel="#{pers.nom} #{pers.prenom}" itemValue="#{per.cin}" /><!--  list dynam -->
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</p:dialog>
 
 	</h:form>
 
