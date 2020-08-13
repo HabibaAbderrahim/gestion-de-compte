@@ -32,15 +32,31 @@
 
 			<!-- ID auto inc !! -->
 			<h:panelGrid>
+
 				<h:outputText value="Date"></h:outputText>
 				<p:calendar value="#{compteBean.compte.date}" pattern="dd/MM/yyyy"></p:calendar>
+
 				<h:outputText value="Client" />
-				<p:selectOneMenu  filterMatchMode="true">
-
-
-					<f:selectItems value="#{personneBean.list}" var="pers" 
-					itemLabel="#{pers.nom} #{pers.prenom}" itemValue="#{per.cin}" /><!--  list dynam -->
+				<p:selectOneMenu value="#{compteBean.compte.personne.cin}"
+					filter="true" filterMatchMode="contains">
+					<f:selectItems value="#{personneBean.list}" var="pers"
+						itemLabel="#{pers.nom} #{pers.prenom}" itemValue="#{pers.cin}" />
+					<!--  list dynam -->
 				</p:selectOneMenu>
+
+				<h:outputText value="Type"></h:outputText>
+				<p:selectOneMenu value="#{compteBean.compte.type}">
+					<f:selectItem itemLabel="Compte Courant" itemValue="Compte Courant"></f:selectItem>
+					<!-- static -->
+					<f:selectItem itemLabel="Compte Epargne" itemValue="Compte Epargne"></f:selectItem>
+					<f:selectItem itemLabel="Compte Devise" itemValue="Compte Devise"></f:selectItem>
+				</p:selectOneMenu>
+
+				<h:outputText value="Solde" />
+				<p:inputText value="#{compteBean.compte.solde}">
+					<p:keyFilter regEx="/[\d\.]/" />
+
+				</p:inputText>
 			</h:panelGrid>
 		</p:dialog>
 
