@@ -30,6 +30,9 @@ public class Compte implements java.io.Serializable {
 	private Date date;
 
 	public Compte() {
+		//objet fi wost objet Target Unreachable
+		
+		personne = new Personne();
 	}
 
 	public Compte(Personne personne, String type, double solde, Date date) {
@@ -88,5 +91,6 @@ public class Compte implements java.io.Serializable {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
 
 }
