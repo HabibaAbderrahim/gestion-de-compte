@@ -15,6 +15,7 @@ import com.fr.gc.services.impl.CompteServiceImpl;
 @ViewScoped
 public class CompteBean implements Serializable {
     
+	//objet compte fel vue bech tsob compte so u nned compte fel contr
 	private Compte compte = new Compte();
 	private CompteService compteService = new CompteServiceImpl();
 	private List<Compte> list = new ArrayList<>();
@@ -31,6 +32,14 @@ public class CompteBean implements Serializable {
 
 	public void setList(List<Compte> list) {
 		this.list = list;
+	}
+
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
 	}
 
 }
