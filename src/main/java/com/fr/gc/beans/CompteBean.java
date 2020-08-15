@@ -22,10 +22,17 @@ public class CompteBean implements Serializable {
 	private Compte compte = new Compte();
 	private CompteService compteService = new CompteServiceImpl();
 	private List<Compte> list = new ArrayList<>();
+	private boolean btnAdd=true, btnEdit=false ;
+	
+	public void clickEdit() {
+		btnAdd=false ;
+		btnEdit=true;
+	}
 
 	public void ajouter() {
 		try {
 			MessageResponse result = compteService.save(compte);
+			compte = new Compte();
 			if (result.isSuccess()) {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", result.getMessage()));
@@ -46,6 +53,26 @@ public class CompteBean implements Serializable {
 	public void supprimer() {
 		try {
 			MessageResponse result = compteService.delete(compte);
+			if (result.isSuccess()) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", result.getMessage()));
+
+			} else {
+
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Attention", result.getMessage()));
+
+			}
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Opération non effectuée"));
+			e.printStackTrace();
+		}
+	}
+	
+	public void modifier() {
+		try {
+			MessageResponse result = compteService.update(compte);
 			if (result.isSuccess()) {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", result.getMessage()));
@@ -84,5 +111,22 @@ public class CompteBean implements Serializable {
 	public void setCompte(Compte compte) {
 		this.compte = compte;
 	}
+
+	public boolean isBtnAdd() {
+		return btnAdd;
+	}
+
+	public void setBtnAdd(boolean btnAdd) {
+		this.btnAdd = btnAdd;
+	}
+
+	public boolean isBtnEdit() {
+		return btnEdit;
+	}
+
+	public void setBtnEdit(boolean btnEdit) {
+		this.btnEdit = btnEdit;
+	}
+	
 
 }
