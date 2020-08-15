@@ -16,7 +16,7 @@
 		<p:dataTable id="ijaTab" value="#{compteBean.list}" var="cpt">
 
 			<p:column headerText="Date création">
-				<h:outputText value="#{cpt.date}"/>
+				<h:outputText value="#{cpt.date}" />
 			</p:column>
 			<p:column headerText="Typecompte">
 				<h:outputText value="#{cpt.type}" />
@@ -35,14 +35,19 @@
 					<f:setPropertyActionListener value="#{cpt}"
 						target="#{compteBean.compte}"></f:setPropertyActionListener>
 				</p:commandButton>
+
+				<p:commandButton value="Editer" onclick="PF('dlg3').show();" update="f:ijapanel" action="#{compteBean.clickEdit()}">
+					<f:setPropertyActionListener value="#{cpt}"
+						target="#{compteBean.compte}"></f:setPropertyActionListener>
+				</p:commandButton>
 			</p:column>
 		</p:dataTable>
 
 		<p:dialog header="Compte" widgetVar="dlg3" showEffect="explode"
-			modal="true" hideEffect="bounce" resizable="false">
+			modal="true" hideEffect="bounce" resizable="false" id="dia">
 
 			<!-- ID auto inc !! -->
-			<h:panelGrid columns="2" id="ijapanel">
+			<h:panelGrid columns="3" id="ijapanel">
 
 				<h:outputText value="Date" id="D1"></h:outputText>
 				<p:calendar value="#{compteBean.compte.date}" pattern="dd/MM/yyyy"></p:calendar>
@@ -71,9 +76,12 @@
 
 				<p:commandButton resetValues="true" value="Ajouter"
 					action="#{compteBean.ajouter()}" update="ijaTab,ijapanel"
-					oncomplete="PF('dlg3').hide()" style="float:center"></p:commandButton>
-				<p:commandButton type="reset" value="Reset"  />
-				
+					oncomplete="PF('dlg3').hide()" style="float:center" rendered="#{compteBean.btnAdd}"></p:commandButton>
+				<p:commandButton type="reset" value="Reset" />
+				<p:commandButton resetValues="true" value="Modifier"
+					action="#{compteBean.modifier()}" update="ijaTab"
+					oncomplete="PF('dlg3').hide()" style="float:center"  rendered="#{compteBean.btnEdit}"></p:commandButton>
+
 				<!-- ki tkamel tir -->
 			</h:panelGrid>
 		</p:dialog>
