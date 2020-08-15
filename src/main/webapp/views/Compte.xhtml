@@ -7,14 +7,16 @@
 
 <h:head></h:head>
 <body>
-	<h:form>
+	<h:form id="f">
 
-		<p:commandButton value="+" style="float:right"
+		<p:commandButton value="Créer compte" style="float:right"
 			onclick="PF('dlg3').show();"></p:commandButton>
-		<p:dataTable value="#{compteBean.list}" var="cpt">
+		<br></br>
+		<br></br>
+		<p:dataTable id="ijaTab" value="#{compteBean.list}" var="cpt">
 
 			<p:column headerText="Date création">
-				<h:outputText value="#{cpt.date}" />
+				<h:outputText value="#{cpt.date}"/>
 			</p:column>
 			<p:column headerText="Typecompte">
 				<h:outputText value="#{cpt.type}" />
@@ -25,15 +27,24 @@
 			<p:column headerText="Client">
 				<h:outputText value="#{cpt.personne.nom} #{cpt.personne.prenom}" />
 			</p:column>
+
+
+			<p:column headerText="Opération">
+				<p:commandButton value="Supprimer"
+					action="#{compteBean.supprimer()}" update="ijaTab">
+					<f:setPropertyActionListener value="#{cpt}"
+						target="#{compteBean.compte}"></f:setPropertyActionListener>
+				</p:commandButton>
+			</p:column>
 		</p:dataTable>
 
 		<p:dialog header="Compte" widgetVar="dlg3" showEffect="explode"
 			modal="true" hideEffect="bounce" resizable="false">
 
 			<!-- ID auto inc !! -->
-			<h:panelGrid>
+			<h:panelGrid columns="2" id="ijapanel">
 
-				<h:outputText value="Date"></h:outputText>
+				<h:outputText value="Date" id="D1"></h:outputText>
 				<p:calendar value="#{compteBean.compte.date}" pattern="dd/MM/yyyy"></p:calendar>
 
 				<h:outputText value="Client" />
@@ -57,8 +68,19 @@
 					<p:keyFilter regEx="/[\d\.]/" />
 
 				</p:inputText>
+
+				<p:commandButton resetValues="true" value="Ajouter"
+					action="#{compteBean.ajouter()}" update="ijaTab,ijapanel"
+					oncomplete="PF('dlg3').hide()" style="float:center"></p:commandButton>
+				<p:commandButton type="reset" value="Reset"  />
+				
+				<!-- ki tkamel tir -->
 			</h:panelGrid>
 		</p:dialog>
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+
 
 	</h:form>
 
